@@ -1,0 +1,26 @@
+@media only screen and (min-width:768px) and (max-width:1023px) {
+    .navbar-brand img {
+        height: auto;
+    }
+    .header-wrapper .search .search-icon {
+        right: 100px;
+    }
+    #block-menudecuentadeusuario .navbar-nav .nav-link {
+        padding: 7px 20px;
+    }
+    section.section.section--column-4 {
+        padding: 2rem 1rem;
+    }
+    section.section.section-timeline .separline:before {
+        right: 25px;
+    }
+    section.section.section-timeline .separline:after {
+        right: 34px;
+    }
+}
+
+@media only screen and (min-width:1024px) and (max-width:1240px) {
+    .navbar-brand img {
+        width: 100%;
+    }
+}

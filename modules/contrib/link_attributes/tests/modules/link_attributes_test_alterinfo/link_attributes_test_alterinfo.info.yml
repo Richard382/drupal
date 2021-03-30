@@ -1,0 +1,12 @@
+name: 'Link attributes alterInfo Test'
+description: 'Implements hook_link_attributes_plugin_alter'
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - link_attributes:link_attributes
+
+# Information added by Drupal.org packaging script on 2020-08-25
+version: '8.x-1.11'
+project: 'link_attributes'
+datestamp: 1598323551

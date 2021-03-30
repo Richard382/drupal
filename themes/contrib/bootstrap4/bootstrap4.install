@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for bootstrap4 theme.
+ */
+
+/**
+ * Updates Bootstrap library to the latest version unless none was selected.
+ */
+function bootstrap4_update_8100() {
+  $config = \Drupal::configFactory()
+    ->getEditable('bootstrap4.settings');
+
+  $configValue = '4.3.1';
+  $configCdnVariable = 'b4_cdn_version_';
+  $configLibVariable = 'b4_lib_version_';
+  $configVariants = ['css', 'js'];
+
+  foreach ($configVariants as $configVariant) {
+    $config
+      ->set($configLibVariable . $configVariant, ($config->get($configCdnVariable . $configVariant) !== '0') ? $configValue : '0')
+      ->clear($configCdnVariable . $configVariant);
+  }
+
+  $config->save();
+}
+
+/**
+ * Clear all config values and resave only relevant.
+ */
+function bootstrap4_update_8101() {
+  $configValues = [
+    'b4_body_schema' => '',
+    'b4_body_bg_schema' => '',
+    'b4_navbar_schema' => 'dark',
+    'b4_navbar_bg_schema' => 'dark',
+    'b4_footer_schema' => 'dark',
+    'b4_footer_bg_schema' => 'secondary',
+    'b4_top_container' => 'container',
+  ];
+
+  $config = \Drupal::configFactory()
+    ->getEditable('bootstrap4.settings');
+
+  // Load existing values.
+  foreach ($configValues as $configIndex => $configValue) {
+    if ($newValue = $config->get($configIndex)) {
+      $configValues[$configIndex] = $newValue;
+    }
+  }
+
+  // Clear config.
+  $config->delete();
+
+  // Resave config.
+  foreach ($configValues as $configIndex => $configValue) {
+    $config->set($configIndex, $configValue);
+  }
+
+  $config->save(TRUE);
+}
+
+/**
+ * Set subtheme configuration.
+ */
+function bootstrap4_update_8102() {
+  \Drupal::configFactory()
+    ->getEditable('bootstrap4.settings')
+    ->set('subtheme_folder', 'themes/custom')
+    ->set('subtheme_name', '')
+    ->set('subtheme_machine_name', '')
+    ->save(TRUE);
+}

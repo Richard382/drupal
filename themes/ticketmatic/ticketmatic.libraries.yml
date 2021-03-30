@@ -1,0 +1,10 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      css/theme.css: {}
+      css/ipad.css: {}
+      css/mobile.css: {}
+  js:
+      js/custom.js:  {}
+      js/lottie-player.js:  {}

@@ -1,0 +1,135 @@
+lang-dropdown-form:
+  version: 1.x
+  css:
+    component:
+      css/lang_dropdown.css: {}
+  js:
+    js/lang_dropdown.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+ms-dropdown:
+  version: 3.5.2
+  title: 'Marghoob Suleman Dropdown jquery library'
+  website: 'https://github.com/marghoobsuleman/ms-Dropdown'
+  js:
+    /libraries/ms-dropdown/js/msdropdown/jquery.dd.min.js: {}
+  css:
+    component:
+      /libraries/ms-dropdown/css/msdropdown/dd.css: {}
+  dependencies:
+    - core/jquery
+
+chosen:
+  version: 1.0.0
+  title: 'Chosen'
+  website: http://harvesthq.github.com/chosen
+  js:
+   /libraries/chosen/chosen.jquery.min.js: {}
+  css:
+    component:
+      /libraries/chosen/chosen.css: {}
+  dependencies:
+    - core/jquery
+
+ddslick:
+  version: 2.0
+  title: ddSlick
+  website: http://designwithpc.com/Plugins/ddSlick
+  js:
+    /libraries/ddslick/jquery.ddslick.min.js: {}
+  dependencies:
+    - core/jquery
+
+#skins
+ldsSkin:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsSkin.css: {}
+
+ldsSkinAfter:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsSkin.css: {}
+
+ldsSkinNoIcon:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsSkin.css: {}
+
+ldsSkinNoLabel:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsSkin.css: {}
+
+ldsDark:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsDark.css: {}
+
+ldsDarkAfter:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsDark.css: {}
+
+ldsDarkNoIcon:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsDark.css: {}
+
+ldsDarkNoLabel:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsDark.css: {}
+
+ldsBlue:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsBlue.css: {}
+
+ldsBlueAfter:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsBlue.css: {}
+
+ldsBlueNoIcon:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsBlue.css: {}
+
+ldsBlueNoLabel:
+  version: 1.x
+  css:
+    theme:
+      css/msdropdown/ldsBlue.css: {}
+
+ddsDefault:
+  version: 1.x
+  css:
+    theme:
+      css/ddslick/ddsDefault.css: {}
+
+ddsDark:
+  version: 1.x
+  css:
+    theme:
+      css/ddslick/ddsDark.css: {}
+
+ddsBlue:
+  version: 1.x
+  css:
+    theme:
+      css/ddslick/ddsBlue.css: {}

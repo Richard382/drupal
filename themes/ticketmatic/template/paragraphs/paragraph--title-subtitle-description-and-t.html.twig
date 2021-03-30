@@ -1,0 +1,160 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+{% set title =  content.field_title %}
+{% set sub_title =  paragraph.field_sub_title.value %}
+{% set description =  content.field_description %}
+{% set image_alignment =  paragraph.field_image_alignment.value %}
+{% set icon = file_url(paragraph.field_sub_title_icon.entity.fileuri) %}
+{% set json = file_url(paragraph.field_upload_lottie_json.entity.fileuri) %}
+{% set testimonial_image = file_url(paragraph.field_testimonial_image.entity.fileuri) %}
+{% set testimonial_description = content.field_testimonial_description %}
+{% set testimonial_name =  paragraph.field_testimonial_name.value %}
+{% set testimonial_designation =  paragraph.field_testimonial_designation.value %}
+{% set testimonial_venue_logo = file_url(paragraph.field_testimonial_venue_logo.entity.fileuri) %}
+
+
+{% if image_alignment == 'right' %}
+<section class="section section--description-testimonial container">
+  <div class="row">
+    <div class="section--description-testimonial-content-left col-sm-6 {{ image_alignment }}">  
+        <div class="icon-subtitle">
+         {% if paragraph.field_sub_title_icon.value == true %}
+            <div class="icon"><img src="{{icon}}" /></div>
+         {% endif %}
+         {% if sub_title %}
+            <h4 class="title-subtitle">{{sub_title}}</h4>
+         {% endif %}
+        </div> 
+        {% if title %}
+          <h1 class="title">{{title}}</h1>
+        {% endif %}  
+        {% if description %}
+          <div class="description">{{ description }}</div>
+        {% endif %} 
+        {% if paragraph.field_url_link.value == true %}
+          <div class="cta-button">{{ content.field_url_link }}</div>
+        {% endif %}   
+        {% if paragraph.field_icon.value == true %}
+          <div class="icon pb-4"><img src="{{icon}}" /></div>
+        {% endif %}  
+    </div> 
+    <div class="section--description-testimonial-content-left col-sm-6">  
+      <div class="lottie-content"><lottie-player src="{{ json }}" background="transparent" speed="1" loop autoplay></lottie-player></div> 
+      <div class="testimonial">
+        {% if paragraph.field_testimonial_image.value == true %}
+          <div class="testimonial_image"><img src="{{testimonial_image}}" /></div>
+        {% endif %}
+        <div class="testimonial-content">
+          {% if testimonial_description %}
+            <div class="testimonial-description">{{ testimonial_description }}</div>
+          {% endif %} 
+          {% if testimonial_name %}
+            <div class="testimonial-name">{{ testimonial_name }}</div>
+          {% endif %} 
+          {% if testimonial_designation %}
+            <div class="testimonial-designation">{{ testimonial_designation }}</div>
+          {% endif %} 
+          {% if paragraph.field_testimonial_venue_logo.value == true %}
+            <div class="testimonial-venue-logo"><img src="{{ testimonial_venue_logo }}" /></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>     
+  </div>
+</section>
+{% else %}
+<section class="section section--description-testimonial container">
+  <div class="row">
+    <div class="section--description-testimonial-content-left col-sm-6">  
+      <div class="lottie-content"><lottie-player src="{{ json }}" background="transparent" speed="1" loop autoplay></lottie-player></div> 
+      <div class="testimonial">
+        {% if paragraph.field_testimonial_image.value == true %}
+          <div class="testimonial_image"><img src="{{testimonial_image}}" /></div>
+        {% endif %}
+        <div class="testimonial-content">
+          {% if testimonial_description %}
+            <div class="testimonial-description">{{ testimonial_description }}</div>
+          {% endif %} 
+          {% if testimonial_name %}
+            <div class="testimonial-name">{{ testimonial_name }}</div>
+          {% endif %} 
+          {% if testimonial_designation %}
+            <div class="testimonial-designation">{{ testimonial_designation }}</div>
+          {% endif %} 
+          {% if paragraph.field_testimonial_venue_logo.value == true %}
+            <div class="testimonial-venue-logo"><img src="{{ testimonial_venue_logo }}" /></div>
+          {% endif %}
+        </div>
+      </div>
+    </div> 
+    <div class="section--description-testimonial-content-left {{ image_alignment }} col-sm-6">  
+        <div class="icon-subtitle">
+         {% if paragraph.field_sub_title_icon.value == true %}
+            <div class="icon"><img src="{{icon}}" /></div>
+         {% endif %}
+         {% if sub_title %}
+            <h4 class="title-subtitle">{{sub_title}}</h4>
+         {% endif %}
+        </div> 
+        {% if title %}
+          <h1 class="title">{{title}}</h1>
+        {% endif %}  
+        {% if description %}
+          <div class="description">{{ description }}</div>
+        {% endif %} 
+        {% if paragraph.field_url_link.value == true %}
+          <div class="cta-button">{{ content.field_url_link }}</div>
+        {% endif %}   
+        {% if paragraph.field_icon.value == true %}
+          <div class="icon pb-4"><img src="{{icon}}" /></div>
+        {% endif %}  
+    </div>     
+  </div>
+</section>
+{% endif %}

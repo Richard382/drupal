@@ -1,0 +1,31 @@
+name: Bootstrap4
+type: theme
+description: 'Theme with Bootstrap 4 css library'
+core_version_requirement: ^8.8 || ^9
+base theme: classy
+
+ckeditor_stylesheets:
+  - css/style.css
+
+libraries:
+  - bootstrap4/bootstrap4-js-latest
+  - bootstrap4/global-styling
+
+stylesheets-remove:
+  - '@classy/css/components/tabs.css'
+
+regions:
+  header: Header
+  nav_branding: 'Navigation branding region'
+  nav_main: 'Main navigation region'
+  nav_additional: 'Additional navigation region (eg search form, social icons, etc)'
+  breadcrumb: Breadcrumbs
+  content: 'Main content'
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  footer: Footer
+
+# Information added by Drupal.org packaging script on 2021-02-01
+version: '2.1.5'
+project: 'bootstrap4'
+datestamp: 1612185973

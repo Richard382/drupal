@@ -1,0 +1,173 @@
+<?php
+
+/**
+ * @file
+ * Language Switcher Dropdown engine module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+// Libraries and modules websites.
+const LANGDROPDOWN_CHOSEN_WEB_URL = 'http://harvesthq.github.com/chosen';
+const LANGDROPDOWN_CHOSEN_MOD_URL = 'https://drupal.org/project/chosen';
+const LANGDROPDOWN_MSDROPDOWN_URL = 'https://github.com/marghoobsuleman/ms-Dropdown';
+const LANGDROPDOWN_LANGUAGEICONS_MOD_URL = 'https://drupal.org/project/languageicons';
+const LANGDROPDOWN_DDSLICK_WEB_URL = 'http://designwithpc.com/Plugins/ddSlick';
+
+// Language display options.
+const LANGDROPDOWN_DISPLAY_TRANSLATED = 0;
+const LANGDROPDOWN_DISPLAY_NATIVE = 1;
+const LANGDROPDOWN_DISPLAY_LANGCODE = 2;
+
+// Widget styles.
+const LANGDROPDOWN_SIMPLE_SELECT = 0;
+const LANGDROPDOWN_MSDROPDOWN = 1;
+const LANGDROPDOWN_CHOSEN = 2;
+const LANGDROPDOWN_DDSLICK = 3;
+
+// Flag position.
+const LANGDROPDOWN_FLAG_POSITION_BEFORE = 0;
+const LANGDROPDOWN_FLAG_POSITION_AFTER = 1;
+
+// Image position in ddslick.
+const LANGDROPDOWN_DDSLICK_LEFT = 'left';
+const LANGDROPDOWN_DDSLICK_RIGHT = 'right';
+
+/**
+ * Implements hook_help().
+ */
+function lang_dropdown_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+
+  switch ($route_name) {
+    case 'help.page.lang_dropdown':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The module will populate a new block named "Language switcher dropdown" under <a href=":blocks">Block layout page</a>.', [':blocks' => Url::fromRoute('block.admin_display')->toString()]) . '</p>';
+      $output .= '<p>' . t('For more information on blocks, please see <a href=":blocks_help">Block module help page</a>.', [':blocks_help' => Url::fromRoute('help.page', ['name' => 'block'])->toString()]) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<p>' . t('The module Provides same functionality as the core language switcher block but with a better look&feel.') . '</p>';
+      $output .= '<p>' . t('For more information on multilingual sites, please see <a href=":language_help">Language module help page</a>.', [':language_help' => Url::fromRoute('help.page', ['name' => 'language'])->toString()]) . '</p>';
+      $output .= '<h4>' . t('Marghoob Suleman Custom skin') . '</h4>';
+      $output .= '<p>' . t('To create custom skins for Marghoob Suleman output follow these steps:') . '</p>';
+      $output .= '<ol style="list-style-type: lower-roman;">';
+      $output .= '<li>' . t('Copy the sample file "ldsCustom.css.sample" that you can find in the folder where you installed the module -normally "modules/contrib/lang_dropdown/msdropdown/css/msdropdown/ldsCustom.css.sample"- into the css folder of Marghoob Suleman library path -normally "libraries/ms-Dropdown/css/msdropdown/"-.') . '</li>';
+      $output .= '<li>' . t('Rename the file to ldsCustom.css.') . '</li>';
+      $output .= '<li>' . t('Edit the CSS file to your needs.') . '</li>';
+      $output .= '<li>' . t('On the block Marghoob Suleman Settings select to use a custom skin with name ldsCustom.') . '</li>';
+      $output .= '</ol>';
+      $output .= '<p>' . t('The name of the custom skin does not necessary has to be ldsCustom but if you use other name you must change the name of the corresponding CSS file and the name of the class on all CSS rules on that file. For example if you want "myskin" as the name of your custom skin then you must rename the sample CSS file to "myskin.css" and edit the CSS so all the rules start with .myskin instead of .ldsCustom.') . '</p>';
+      $output .= '<h4>' . t('ddSlick Custom skin') . '</h4>';
+      $output .= '<p>' . t('To create custom skins for ddSlick output follow these steps:') . '</p>';
+      $output .= '<ol style="list-style-type: lower-roman;">';
+      $output .= '<li>' . t('Copy the sample file "ddsCustom.css.sample" that you can find in the folder where you installed the module -normally "modules/contrib/lang_dropdown/ddslick/ddsCustom.css.sample"- into the css folder of ddSlick library path -normally "libraries/ddSlick/"-.') . '</li>';
+      $output .= '<li>' . t('Rename the file to ddsCustom.css.') . '</li>';
+      $output .= '<li>' . t('Edit the CSS file to your needs.') . '</li>';
+      $output .= '<li>' . t('On the block ddSlick Settings select to use a custom skin with name ddsCustom.') . '</li>';
+      $output .= '</ol>';
+      $output .= '<p>' . t('The name of the custom skin does not necessary has to be ddsCustom but if you use other name you must change the name of the corresponding CSS file and the name of the class on all CSS rules on that file. For example if you want "myskin" as the name of your custom skin then you must rename the sample CSS file to "myskin.css" and edit the CSS so all the rules start with .myskin instead of .ddsCustom.') . '</p>';
+      break;
+  }
+
+  return $output;
+}
+
+/**
+ * Helper function to handle msdropdown skins data.
+ */
+function _lang_dropdown_get_msdropdown_skins() {
+  $module_path = drupal_get_path('module', 'lang_dropdown');
+  return [
+    'ldsSkin' => [
+      'text' => t('Default skin'),
+      'file' => $module_path . '/css/msdropdown/ldsSkin.css',
+      'mainCSS' => 'ldsSkin',
+    ],
+    'ldsSkinAfter' => [
+      'text' => t('Default skin, icon right'),
+      'file' => $module_path . '/css/msdropdown/ldsSkin.css',
+      'mainCSS' => 'ldsSkinAfter',
+    ],
+    'ldsSkinNoIcon' => [
+      'text' => t('Default skin, no icon'),
+      'file' => $module_path . '/css/msdropdown/ldsSkin.css',
+      'mainCSS' => 'ldsSkinNoIcon',
+    ],
+    'ldsSkinNoLabel' => [
+      'text' => t('Default skin, no label'),
+      'file' => $module_path . '/css/msdropdown/ldsSkin.css',
+      'mainCSS' => 'ldsSkinNoLabel',
+    ],
+    'ldsDark' => [
+      'text' => t('Dark skin'),
+      'file' => $module_path . '/css/msdropdown/ldsDark.css',
+      'mainCSS' => 'ldsDark',
+    ],
+    'ldsDarkAfter' => [
+      'text' => t('Dark skin, icon right'),
+      'file' => $module_path . '/css/msdropdown/ldsDark.css',
+      'mainCSS' => 'ldsDarkAfter',
+    ],
+    'ldsDarkNoIcon' => [
+      'text' => t('Dark skin, no icon'),
+      'file' => $module_path . '/css/msdropdown/ldsDark.css',
+      'mainCSS' => 'ldsDarkNoIcon',
+    ],
+    'ldsDarkNoLabel' => [
+      'text' => t('Dark skin, no label'),
+      'file' => $module_path . '/css/msdropdown/ldsDark.css',
+      'mainCSS' => 'ldsDarkNoLabel',
+    ],
+    'ldsBlue' => [
+      'text' => t('Blue skin'),
+      'file' => $module_path . '/css/msdropdown/ldsBlue.css',
+      'mainCSS' => 'ldsBlue',
+    ],
+
+    'ldsBlueAfter' => [
+      'text' => t('Blue skin, icon right'),
+      'file' => $module_path . '/css/msdropdown/ldsBlue.css',
+      'mainCSS' => 'ldsBlueAfter',
+    ],
+    'ldsBlueNoIcon' => [
+      'text' => t('Blue skin, no icon'),
+      'file' => $module_path . '/css/msdropdown/ldsBlue.css',
+      'mainCSS' => 'ldsBlueNoIcon',
+    ],
+    'ldsBlueNoLabel' => [
+      'text' => t('Blue skin, no label'),
+      'file' => $module_path . '/css/msdropdown/ldsBlue.css',
+      'mainCSS' => 'ldsBlueNoLabel',
+    ],
+    'custom' => [
+      'text' => t('Custom skin'),
+      'file' => '',
+      'mainCSS' => '',
+    ],
+  ];
+}
+
+/**
+ * Helper function to handle ddSlick skins data.
+ */
+function _lang_dropdown_get_ddslick_skins() {
+  $module_path = drupal_get_path('module', 'lang_dropdown');
+  return [
+    'ddsDefault' => [
+      'text' => t('Default skin'),
+      'file' => $module_path . '/css/ddslick/ddsDefault.css',
+    ],
+    'ddsDark' => [
+      'text' => t('Dark skin'),
+      'file' => $module_path . '/css/ddslick/ddsDark.css',
+    ],
+    'ddsBlue' => [
+      'text' => t('Blue skin'),
+      'file' => $module_path . '/css/ddslick/ddsBlue.css',
+    ],
+    'custom' => [
+      'text' => t('Custom skin'),
+      'file' => '',
+    ],
+  ];
+}

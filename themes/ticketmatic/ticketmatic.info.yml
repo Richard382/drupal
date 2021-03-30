@@ -1,0 +1,27 @@
+name: 'Ticketmatic Theme'
+type: theme
+description: 'Ticketmatic Theme subtheme based on Bootstrap 4 theme.'
+core: 8.x
+core_version_requirement: '^8 || ^9'
+'base theme': bootstrap4
+stylesheets-remove:
+  - '@bootstrap4/css/style.css'
+libraries:
+  - ticketmatic/global-styling
+regions:
+  header_top: 'Header Top'
+  nav_branding: 'Navigation branding region'
+  nav_main: 'Main navigation region'
+  banner: 'Banner'
+  content: 'Main content'
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  content_bottom_area: 'Content Bottom Area'
+  content_bottom_container: 'Content Bottom Container Area'
+  footer_top: 'Footer Top'
+  footer_first: 'Footer Menu First'
+  footer_second:  'Footer Menu Second'
+  footer_third:  'Footer Menu Third'
+  footer_fourth:  'Footer Menu Fourth'
+  footer_bottom_left:  'Footer Bottom Left'
+  footer_bottom_right:  'Footer Bottom Right'

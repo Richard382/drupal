@@ -1,0 +1,23 @@
+bootstrap4-js-latest:
+  version: 4.5.3
+  js:
+    dist/bootstrap/4.5.3/dist/js/bootstrap.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+
+drupal.nav-tabs:
+  version: VERSION
+  js:
+    js/nav-tabs.js: {}
+  dependencies:
+    - core/matchmedia
+    - core/jquery
+    - core/drupal
+    - core/jquery.once
+    - core/drupal.debounce
+    - core/collapse

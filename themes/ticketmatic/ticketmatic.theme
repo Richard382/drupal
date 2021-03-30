@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * SUBTHEME theme file.
+ */
+
+ 
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form templates.
+ * @param array $suggestions
+ * @param array $variables
+ */
+function ticketmatic_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  // Block suggestions for custom block bundles.
+  if (isset($variables['elements']['content']['#block_content'])) {
+    array_splice($suggestions, 1, 0, 'block__bundle__' . $variables['elements']['content']['#block_content']->bundle());
+  }
+}
+
+
+function  ticketmatic_preprocess_html(&$variables) {
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    $variables['attributes']['class'][] = 'page-node-' . $node->id();
+  }
+}

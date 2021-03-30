@@ -1,0 +1,82 @@
+block.settings.language_dropdown_block:*:
+  type: block_settings
+  label: 'Language dropdown block'
+  mapping:
+    showall:
+      type: boolean
+      label: 'Show all enabled languages'
+    tohome:
+      type: boolean
+      label: 'Redirect to home on switch'
+    width:
+      type: integer
+      label: 'Width of dropdown element'
+    display:
+      type: integer
+      label: 'Display format'
+    widget:
+      type: integer
+      label: 'Output type'
+    msdropdown:
+      type: mapping
+      mapping:
+        visible_rows:
+          type: integer
+          label: 'Maximum number of visible rows'
+        rounded:
+          type: boolean
+          label: 'Rounded corners'
+        animation:
+          type: string
+          label: 'Animation style for dropdown'
+        event:
+          type: string
+          label: 'Event that opens the menu'
+        skin:
+          type: string
+          label: Skin
+        custom_skin:
+          type: string
+          label: 'Custom skin name'
+    chosen:
+      type: mapping
+      mapping:
+        disable_search:
+          type: boolean
+          label: 'Disable search box'
+        no_results_text:
+          type: label
+          label: 'No language match'
+    ddslick:
+      type: mapping
+      mapping:
+        ddslick_height:
+          type: integer
+          label: Height
+        showSelectedHTML:
+          type: boolean
+          label: 'Show Flag'
+        imagePosition:
+          type: string
+          label: 'Flag Position'
+        skin:
+          type: string
+          label: Skin
+        custom_skin:
+          type: string
+          label: 'Custom skin name'
+    languageicons:
+      type: mapping
+      mapping:
+        flag_position:
+          type: integer
+          label: 'Position of the flag when the dropdown is show just as a select'
+    hidden_languages:
+      type: sequence
+      label: 'Languages to hide for role'
+      sequence:
+        type: sequence
+        label: Role
+        sequence:
+          type: string
+          label: 'Language code'
